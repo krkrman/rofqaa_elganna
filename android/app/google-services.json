@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "698109700224",
+    "project_id": "rofqaa-el-ganna",
+    "storage_bucket": "rofqaa-el-ganna.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698109700224:android:d4a7917a656520d0bc9e65",
+        "android_client_info": {
+          "package_name": "com.example.rofqaa_elganna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698109700224-84qma8gd6uvqd1mm23fq2m1cbk8690ac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rofqaa_elganna",
+            "certificate_hash": "71976fe5c794216808ca3b33cad2d27a7f5314cf"
+          }
+        },
+        {
+          "client_id": "698109700224-jtnaqhlmu2cqrdfd1r69r80l3jg605ge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe_kTRrk9P-KO3O75dUNZuEZZWVsQja2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698109700224-jtnaqhlmu2cqrdfd1r69r80l3jg605ge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
