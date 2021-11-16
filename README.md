@@ -1,16 +1,15 @@
-# rofqaa_elganna
+## Rofqaa El-ganna Charity App
 
-A new Flutter project.
+It is an app that facilitate the financial work of Rofaqaa El-Ganna charity by doing the following:
+1- There is collecting teams which include members and leader<br />
+2- Everyone in the team can commit a donation and it will not be verified until the leader scan the QR code of that donation<br />
+3- every member can see only his team's donations but not other teams<br />
+4- there is a manager that can view all teams<br />
+5- So we have 3 types of acounts Member , team leader and team manager and the app will adapt and change itself according to <br />
+![image](https://user-images.githubusercontent.com/23630476/142032305-c61cdd8f-013f-4f9c-acb0-83761ef39ae1.png)
 
-## Getting Started
+![image](https://user-images.githubusercontent.com/23630476/142032412-7a917c31-13c2-4315-bac8-d95d4c699fe9.png)
 
-This project is a starting point for a Flutter application.
+![image](https://user-images.githubusercontent.com/23630476/142032553-8b7015ab-d0f9-4ce8-85a7-872ab00d6eac.png)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
