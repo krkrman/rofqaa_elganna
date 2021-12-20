@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-
 class Constants {
-  static const Color primaryColor = Color(0xffADC91C);
-  static const Color accentColor = Color(0xff20abe2);
   static const double radius = 20;
   static const String HIVE_BOX = 'HIVE_BOX';
   static const String USER = 'USER';
