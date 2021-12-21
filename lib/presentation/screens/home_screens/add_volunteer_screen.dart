@@ -104,9 +104,8 @@ class AddVolunteerScreen extends StatelessWidget {
                     text: 'Add Friend',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        print('+2${phoneController.text}');
-                        AddVolunteerCubit.get(context)
-                            .addVolunteer('+2${phoneController.text}');
+                        debugPrint('+2${phoneController.text}');
+                        AddVolunteerCubit.get(context).addVolunteer('+2${phoneController.text}');
                       }
                     })
               ],

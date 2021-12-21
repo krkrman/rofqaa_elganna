@@ -40,7 +40,7 @@ class OTPScreen extends StatelessWidget {
         title: 'Error happened',
         desc: state.error,
       )..show();
-      print(state.error);
+      debugPrint(state.error);
     } else if (state is PhoneAuthUserCreatedFailed) {
       AwesomeDialog(
         context: context,

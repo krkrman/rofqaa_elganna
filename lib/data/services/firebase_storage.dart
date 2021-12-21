@@ -13,7 +13,6 @@ class FirebaseStorage {
       await storage.ref('$cloudPath/$fileName').putFile(file);
       return await storage.ref('$cloudPath/$fileName').getDownloadURL();
     } on firebase_core.FirebaseException catch (e) {
-      print(e);
       return null;
     }
   }

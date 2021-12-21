@@ -14,7 +14,7 @@ class TeamDonationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var teamDonationsCubit = TeamDonationsCubit.get(context);
     UserModel userModel = UserModel.fromMap(Map<String, dynamic>.from(Utility.box.get(Constants.USER)));
-    print(userModel);
+    debugPrint(userModel.toString());
     if (userModel.teamName != '') {
       teamDonationsCubit.getTeamDonations();
     }

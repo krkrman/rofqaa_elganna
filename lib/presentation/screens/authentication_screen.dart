@@ -29,7 +29,7 @@ class AuthenticationScreen extends StatelessWidget {
           EasyLoading.dismiss();
         }
         if (state is PhoneAuthLoading) {
-          print('Loading');
+          debugPrint('Loading');
           EasyLoading.instance
             ..indicatorType = EasyLoadingIndicatorType.fadingCircle
             ..loadingStyle = EasyLoadingStyle.dark
@@ -44,7 +44,7 @@ class AuthenticationScreen extends StatelessWidget {
             status: 'Loading...',
           );
         } else if (state is PhoneAuthCodeSent) {
-          print('code sent');
+          debugPrint('code sent');
           Utility.navigateTo(
               context,
               OTPScreen(

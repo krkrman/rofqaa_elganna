@@ -18,7 +18,6 @@ class UserModel {
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
-    print(map['userType']);
     var enumObject = EnumObject<UserType>(UserType.values);
     return new UserModel(
       name: map['name'] as String,

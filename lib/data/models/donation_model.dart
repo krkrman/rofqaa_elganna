@@ -26,7 +26,6 @@ class DonationModel {
 
   factory DonationModel.fromMap(Map<String, dynamic> map) {
     var enumObject = EnumObject<DonationKind>(DonationKind.values);
-    print(map);
     return DonationModel(
       userModel: UserModel.fromMap(map['userModel']),
       contributorName: map['contributorName'] ?? '',

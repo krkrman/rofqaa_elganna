@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:698109700224:android:d4a7917a656520d0bc9e65",
         "android_client_info": {
-          "package_name": "com.example.rofqaa_elganna"
+          "package_name": "com.kareem.rofqaa.elganna"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "698109700224-84qma8gd6uvqd1mm23fq2m1cbk8690ac.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.rofqaa_elganna",
+            "package_name": "com.kareem.rofqaa.elganna",
             "certificate_hash": "71976fe5c794216808ca3b33cad2d27a7f5314cf"
           }
         },

@@ -1,9 +1,9 @@
 1- for internet connection:
     bool result = await InternetConnectionChecker().hasConnection;
     if(result == true) {
-      print('YAY! Free cute dog pics!');
+      debugPrint('YAY! Free cute dog pics!');
     } else {
-      print('No internet :( Reason:');
-      print(InternetConnectionChecker().lastTryResults);
+      debugPrint('No internet :( Reason:');
+      debugPrint(InternetConnectionChecker().lastTryResults);
     }
 
