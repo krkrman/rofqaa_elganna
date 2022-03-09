@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -12,6 +13,7 @@ import 'package:rofqaa_elganna/logic/cubits/phone_auth_cubit/phone_auth_cubit.da
 import 'package:rofqaa_elganna/presentation/screens/OTP_screen.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/bordered_form_field.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/custom_button.dart';
+import 'package:rofqaa_elganna/translation/locale_keys.g.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   final nameController = TextEditingController();
@@ -29,7 +31,6 @@ class AuthenticationScreen extends StatelessWidget {
           EasyLoading.dismiss();
         }
         if (state is PhoneAuthLoading) {
-          debugPrint('Loading');
           EasyLoading.instance
             ..indicatorType = EasyLoadingIndicatorType.fadingCircle
             ..loadingStyle = EasyLoadingStyle.dark
@@ -41,10 +42,9 @@ class AuthenticationScreen extends StatelessWidget {
             ..userInteractions = true
             ..dismissOnTap = false;
           EasyLoading.show(
-            status: 'Loading...',
+            status: LocaleKeys.loading.tr(),
           );
         } else if (state is PhoneAuthCodeSent) {
-          debugPrint('code sent');
           Utility.navigateTo(
               context,
               OTPScreen(
@@ -55,15 +55,15 @@ class AuthenticationScreen extends StatelessWidget {
             context: context,
             dialogType: DialogType.ERROR,
             animType: AnimType.BOTTOMSLIDE,
-            title: 'Error happened',
+            title: LocaleKeys.errorHappened.tr(),
             desc: state.error,
           )..show();
         } else if (state is PhoneAuthInvalidPhoneNumber) {
           AwesomeDialog(
             context: context,
             dialogType: DialogType.ERROR,
-            title: 'Error happened',
-            desc: 'Invalid phone Number',
+            title: LocaleKeys.errorHappened.tr(),
+            desc: LocaleKeys.invalidPhoneNumber.tr(),
             animType: AnimType.BOTTOMSLIDE,
           )..show();
         }
@@ -90,8 +90,8 @@ class AuthenticationScreen extends StatelessWidget {
                         BorderedFormField(
                           controller: nameController,
                           textInputType: TextInputType.name,
-                          validate: RequiredValidator(errorText: 'Name is Required'),
-                          label: 'Name',
+                          validate: RequiredValidator(errorText: LocaleKeys.nameIsRequired.tr()),
+                          label: LocaleKeys.name.tr(),
                           prefixIcon: Icons.account_circle_outlined,
                           radius: Constants.radius,
                         ),
@@ -100,17 +100,17 @@ class AuthenticationScreen extends StatelessWidget {
                           controller: phoneController,
                           textInputType: TextInputType.phone,
                           validate: Validators.phoneValidator,
-                          label: 'Phone Number',
+                          label: LocaleKeys.phoneNumber.tr(),
                           prefixIcon: Icons.phone_android_rounded,
                           radius: Constants.radius,
                         ),
                         const SizedBox(height: 40),
                         CustomButton(
-                          text: 'SIGN IN',
+                          text: LocaleKeys.signIn.tr(),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              userModel =
-                                  UserModel(name: nameController.text, phone: '+2${phoneController.text}');
+                              userModel = UserModel(
+                                  name: nameController.text, phone: '+2${phoneController.text}');
                               authCubit.authenticate(userModel!);
                             }
                           },

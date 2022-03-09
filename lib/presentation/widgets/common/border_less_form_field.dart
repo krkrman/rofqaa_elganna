@@ -38,8 +38,7 @@ class BorderLessFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
-          color: backgroundColor ?? Colors.grey[300]),
+          borderRadius: BorderRadius.circular(radius), color: backgroundColor ?? Colors.grey[300]),
       child: TextFormField(
         controller: controller,
         keyboardType: textInputType,
@@ -52,16 +51,14 @@ class BorderLessFormField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
           prefixIcon: Icon(prefixIcon),
-          suffixIcon: suffixIcon != null
-              ? IconButton(onPressed: suffixPressed, icon: Icon(suffixIcon))
-              : null,
+          suffixIcon:
+              suffixIcon != null ? IconButton(onPressed: suffixPressed, icon: Icon(suffixIcon)) : null,
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
-          contentPadding:
-              EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+          contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
         ),
       ),
     );

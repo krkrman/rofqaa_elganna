@@ -5,15 +5,15 @@ class TeamModel {
   List<UserModel>? users;
   UserModel? teamLeader;
   String? teamName;
-  List<DonationModel>? collectedDonations, unCollectedDonations;
+  List<DonationModel>? donationsWithTeamLeader, donationsWithTeamManager, unCollectedDonations;
 
-  TeamModel({
-    this.users,
-    required this.teamLeader,
-    required this.teamName,
-    this.collectedDonations,
-    this.unCollectedDonations,
-  });
+  TeamModel(
+      {this.users,
+      required this.teamLeader,
+      required this.teamName,
+      this.donationsWithTeamLeader,
+      this.unCollectedDonations,
+      this.donationsWithTeamManager});
 
   TeamModel.fromMap(Map<String, dynamic> map) {
     if (map["users"] != null) {
@@ -24,10 +24,16 @@ class TeamModel {
     }
     teamLeader = UserModel.fromMap(map['teamLeader']);
     teamName = map['teamName'] as String;
-    collectedDonations = [];
-    if (map["collectedDonations"] != null) {
-      map["collectedDonations"].forEach((v) {
-        collectedDonations!.add(DonationModel.fromMap(v));
+    donationsWithTeamLeader = [];
+    if (map["donationsWithTeamLeader"] != null) {
+      map["donationsWithTeamLeader"].forEach((v) {
+        donationsWithTeamLeader!.add(DonationModel.fromMap(v));
+      });
+    }
+    donationsWithTeamManager = [];
+    if (map["donationsWithTeamManager"] != null) {
+      map["donationsWithTeamManager"].forEach((v) {
+        donationsWithTeamManager!.add(DonationModel.fromMap(v));
       });
     }
     unCollectedDonations = [];
@@ -43,7 +49,8 @@ class TeamModel {
     return {
       'teamLeader': this.teamLeader!.toMap(),
       'teamName': this.teamName,
-      'collectedDonations': this.collectedDonations,
+      'donationsWithTeamLeader': this.donationsWithTeamLeader,
+      'donationsWithTeamManager': this.donationsWithTeamManager,
       'unCollectedDonations': this.unCollectedDonations,
     } as Map<String, dynamic>;
   }

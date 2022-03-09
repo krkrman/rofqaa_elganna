@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -9,6 +10,7 @@ import 'package:rofqaa_elganna/helper/validators.dart';
 import 'package:rofqaa_elganna/logic/cubits/create_team_cubit/create_team_cubit.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/bordered_form_field.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/custom_button.dart';
+import 'package:rofqaa_elganna/translation/locale_keys.g.dart';
 
 class CreateTeamScreen extends StatelessWidget {
   final phoneController = TextEditingController();
@@ -19,24 +21,23 @@ class CreateTeamScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<CreateTeamCubit, CreateTeamState>(
       listener: (context, state) {
-        // TODO: implement listener
         if (state is CreateTeamSucceeded) {
           EasyLoading.dismiss();
           AwesomeDialog(
             context: context,
             dialogType: DialogType.SUCCES,
-            title: 'Created Successfully',
+            title: '${LocaleKeys.createdSuccessfully.tr()}',
             animType: AnimType.BOTTOMSLIDE,
-            desc: 'Allah put his work in your good deeds',
+            desc: '${LocaleKeys.allahPutThemInYourGoodDeeds.tr()}',
           )..show();
         } else if (state is CreateTeamFailed) {
           EasyLoading.dismiss();
           AwesomeDialog(
             context: context,
             dialogType: DialogType.ERROR,
-            title: 'Something wrong',
+            title: '${LocaleKeys.somethingWrong.tr()}',
             animType: AnimType.BOTTOMSLIDE,
-            desc: 'check your internet',
+            desc: '${LocaleKeys.checkYourInternetConnection.tr()}',
           )..show();
         } else if (state is CreateTeamLoading) {
           EasyLoading.instance
@@ -50,26 +51,25 @@ class CreateTeamScreen extends StatelessWidget {
             ..userInteractions = true
             ..dismissOnTap = false;
           EasyLoading.show(
-            status: 'Loading...',
+            status: '${LocaleKeys.loading.tr()}',
           );
         } else if (state is CreateTeamHasNoInternetConnection) {
           EasyLoading.dismiss();
           AwesomeDialog(
             context: context,
             dialogType: DialogType.WARNING,
-            title: 'No Internet Connection',
+            title: '${LocaleKeys.noInternetConnection.tr()}',
             animType: AnimType.BOTTOMSLIDE,
-            desc:
-                'Your Friend will be added as soon as there is internet connection',
+            desc: '${LocaleKeys.teamWillBeAddedAsSoonAsThereIsInternetConnection.tr()}',
           )..show();
         } else if (state is TeamLeaderDoesNotExist) {
           EasyLoading.dismiss();
           AwesomeDialog(
             context: context,
             dialogType: DialogType.WARNING,
-            title: 'User is not found',
+            title: '${LocaleKeys.userNotFound.tr()}',
             animType: AnimType.BOTTOMSLIDE,
-            desc: 'there is no user with that phone number',
+            desc: '${LocaleKeys.thereIsNoUserWithThatPhoneNumber.tr()}',
           )..show();
         }
       },
@@ -89,8 +89,8 @@ class CreateTeamScreen extends StatelessWidget {
                   BorderedFormField(
                     controller: teamNameController,
                     textInputType: TextInputType.name,
-                    validate: RequiredValidator(errorText: 'Required field'),
-                    label: 'Team Name',
+                    validate: RequiredValidator(errorText: '${LocaleKeys.requiredField.tr()}'),
+                    label: '${LocaleKeys.teamName.tr()}',
                     prefixIcon: Icons.group_rounded,
                   ),
                   SizedBox(height: 30),
@@ -98,19 +98,18 @@ class CreateTeamScreen extends StatelessWidget {
                     controller: phoneController,
                     textInputType: TextInputType.phone,
                     validate: Validators.phoneValidator,
-                    label: 'Team Leader phone',
+                    label: '${LocaleKeys.teamLeaderPhone.tr()}',
                     prefixIcon: Icons.person_add,
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   CustomButton(
-                    text: 'Add Team',
+                    text: '${LocaleKeys.addTeam.tr()}',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        CreateTeamCubit.get(context).createTeam(
-                            teamNameController.text,
-                            '+2${phoneController.text}');
+                        CreateTeamCubit.get(context)
+                            .createTeam(teamNameController.text, '+2${phoneController.text}');
                       }
                     },
                   ),

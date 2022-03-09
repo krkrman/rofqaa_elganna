@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -9,6 +10,7 @@ import 'package:rofqaa_elganna/presentation/screens/home_layout.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/custom_button.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/custom_text.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/pin_code.dart';
+import 'package:rofqaa_elganna/translation/locale_keys.g.dart';
 
 class OTPScreen extends StatelessWidget {
   TextEditingController textEditingController = TextEditingController();
@@ -26,9 +28,9 @@ class OTPScreen extends StatelessWidget {
       AwesomeDialog(
         context: context,
         dialogType: DialogType.SUCCES,
-        title: 'Login Success',
+        title: LocaleKeys.loginSuccess.tr(),
         animType: AnimType.BOTTOMSLIDE,
-        desc: 'Welcome to our Charity',
+        desc: LocaleKeys.welcomeToOurCharity.tr(),
       )..show();
     } else if (state is PhoneAuthVerificationCompleted) {
       authCubit.createUser(userModel);
@@ -37,7 +39,7 @@ class OTPScreen extends StatelessWidget {
         context: context,
         dialogType: DialogType.ERROR,
         animType: AnimType.BOTTOMSLIDE,
-        title: 'Error happened',
+        title: LocaleKeys.errorHappened.tr(),
         desc: state.error,
       )..show();
       debugPrint(state.error);
@@ -46,7 +48,7 @@ class OTPScreen extends StatelessWidget {
         context: context,
         dialogType: DialogType.ERROR,
         animType: AnimType.BOTTOMSLIDE,
-        title: 'Error happened',
+        title: LocaleKeys.errorHappened.tr(),
         desc: state.error,
       )..show();
     }
@@ -70,13 +72,13 @@ class OTPScreen extends StatelessWidget {
                       Lottie.asset('assets/mobile_otp.json', repeat: true, height: 300, width: 300),
                       const SizedBox(height: 18),
                       CustomText(
-                        text: 'OTP Verification',
+                        text: LocaleKeys.OTPVerification.tr(),
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                         alignment: Alignment.center,
                       ),
-                      const CustomText(
-                        text: 'Enter OTP sent to phone : ',
+                      CustomText(
+                        text: LocaleKeys.enterOTPSentToPhone.tr(),
                         alignment: Alignment.center,
                         fontSize: 18,
                       ),
@@ -87,7 +89,7 @@ class OTPScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 50),
                       CustomButton(
-                          text: 'Verify',
+                          text: LocaleKeys.verify.tr(),
                           onPressed: () {
                             authCubit.submitPinCode(textEditingController.text);
                           }),

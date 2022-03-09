@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:enum_object/enum_object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,8 @@ import 'package:rofqaa_elganna/logic/cubits/add_donation_cubit/add_donation_cubi
 import 'package:rofqaa_elganna/presentation/widgets/common/bordered_form_field.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/custom_button.dart';
 import 'package:rofqaa_elganna/presentation/widgets/common/custom_text.dart';
+import 'package:rofqaa_elganna/translation/codegen_loader.g.dart';
+import 'package:rofqaa_elganna/translation/locale_keys.g.dart';
 
 class AddDonationScreen extends StatelessWidget {
   final amountController = TextEditingController();
@@ -37,27 +40,27 @@ class AddDonationScreen extends StatelessWidget {
         AwesomeDialog(
           context: context,
           dialogType: DialogType.SUCCES,
-          title: 'Added Successfully',
+          title: '${LocaleKeys.addedSuccessfully.tr()}',
           animType: AnimType.BOTTOMSLIDE,
-          desc: 'Allah put them in your good deeds',
+          desc: '${LocaleKeys.allahPutThemInYourGoodDeeds.tr()}',
         )..show();
       } else if (state is AddDonationFailed) {
         EasyLoading.dismiss();
         AwesomeDialog(
           context: context,
           dialogType: DialogType.ERROR,
-          title: 'Something wrong',
+          title: '${LocaleKeys.somethingWrong.tr()}',
           animType: AnimType.BOTTOMSLIDE,
-          desc: 'check your internet',
+          desc: '${LocaleKeys.checkYourInternetConnection.tr()}',
         )..show();
       } else if (state is AddDonationHasNoInternetConnection) {
         EasyLoading.dismiss();
         AwesomeDialog(
           context: context,
           dialogType: DialogType.WARNING,
-          title: 'No Internet Connection',
+          title: '${LocaleKeys.noInternetConnection.tr()}',
           animType: AnimType.BOTTOMSLIDE,
-          desc: 'donation will be added as soon as there is internet connection',
+          desc: '${LocaleKeys.donationWillBeAddedAsSoonAsThereIsInternetConnection.tr()}',
         )..show();
       } else if (state is AddDonationLoading) {
         EasyLoading.instance
@@ -71,14 +74,14 @@ class AddDonationScreen extends StatelessWidget {
           ..userInteractions = true
           ..dismissOnTap = false;
         EasyLoading.show(
-          status: 'Loading...',
+          status: '${LocaleKeys.loading.tr()}',
         );
       }
     }, builder: (context, state) {
       if (Utility.box.get(Constants.USER)['teamName'] == '') {
         return Center(
           child: CustomText(
-            text: 'Tell the Team manager to add you to a team',
+            text: '${LocaleKeys.tellTheTeamLeaderToAddYouToTeam.tr()}',
           ),
         );
       } else {
@@ -95,16 +98,16 @@ class AddDonationScreen extends StatelessWidget {
                   BorderedFormField(
                     controller: amountController,
                     textInputType: TextInputType.number,
-                    validate: RequiredValidator(errorText: 'Amount is Required'),
-                    label: 'Amount',
+                    validate: RequiredValidator(errorText: '${LocaleKeys.amountRequired.tr()}'),
+                    label: '${LocaleKeys.amount.tr()}',
                     prefixIcon: CommunityMaterialIcons.bitcoin,
                   ),
                   const SizedBox(height: 20),
                   BorderedFormField(
                     controller: contributorNameController,
                     textInputType: TextInputType.name,
-                    validate: RequiredValidator(errorText: 'Contributor name is Required'),
-                    label: 'Contributor name',
+                    validate: RequiredValidator(errorText: '${LocaleKeys.donatorNameIsRequired.tr()}'),
+                    label: '${LocaleKeys.donatorName.tr()}',
                     prefixIcon: Icons.account_circle,
                   ),
                   const SizedBox(
@@ -113,22 +116,36 @@ class AddDonationScreen extends StatelessWidget {
                   DropdownSearch<String>(
                       mode: Mode.MENU,
                       showSelectedItem: true,
-                      items: ['roof', 'waterLink', 'beds', 'brideDevices', 'meals', 'zakatMoney', 'public'],
-                      label: "Menu mode",
-                      hint: "country in menu mode",
+                      items: [
+                        LocaleKeys.roof.tr(),
+                        LocaleKeys.waterLink.tr(),
+                        LocaleKeys.beds.tr(),
+                        LocaleKeys.brideDevices.tr(),
+                        LocaleKeys.meals.tr(),
+                        LocaleKeys.zakatMoney.tr(),
+                        LocaleKeys.public.tr()
+                      ],
+                      label: "${LocaleKeys.donationType.tr()}",
+                      hint: "${LocaleKeys.donationType.tr()}",
                       //popupItemDisabled: (String s) => s.startsWith('I'),
                       onSaved: (value) {
+                        String? key = CodegenLoader.en.keys
+                            .firstWhere((k) => CodegenLoader.en[k] == value, orElse: () => '');
+                        if (key == '')
+                          key = CodegenLoader.ar.keys
+                              .firstWhere((k) => CodegenLoader.ar[k] == value, orElse: () => '');
+                        debugPrint(key);
                         var enumObject = EnumObject<DonationKind>(DonationKind.values);
-                        donationKind = enumObject.enumFromString(value);
+                        donationKind = enumObject.enumFromString(key);
                       },
-                      selectedItem: "public"),
+                      selectedItem: LocaleKeys.public.tr()),
                   const SizedBox(
                     height: 20,
                   ),
                   BorderedFormField(
                     controller: poorCodeController,
                     textInputType: TextInputType.name,
-                    label: 'Poor code',
+                    label: '${LocaleKeys.poorCode.tr()}',
                     validate: (value) => null,
                     prefixIcon: Icons.supervisor_account_outlined,
                   ),
@@ -136,7 +153,7 @@ class AddDonationScreen extends StatelessWidget {
                     height: 50,
                   ),
                   CustomButton(
-                      text: 'Donate',
+                      text: '${LocaleKeys.donate.tr()}',
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState?.save();

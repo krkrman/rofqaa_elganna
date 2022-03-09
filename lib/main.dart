@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,14 +24,20 @@ import 'logic/cubits/phone_auth_cubit/phone_auth_cubit.dart';
 import 'logic/cubits/team_members_cubit/team_members_cubit.dart';
 import 'logic/cubits/teams_donations_for_manager_cubit/teams_donations_for_manager_cubit.dart';
 
+// localize the types of donations
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
   final Directory appDocumentDir = await getApplicationDocumentsDirectory();
   Hive..init(appDocumentDir.path);
   await Hive.openBox(Constants.HIVE_BOX);
   Bloc.observer = MyBlocObserver();
-  runApp(MyApp());
+  runApp(EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: 'lang',
+      fallbackLocale: const Locale('en', 'US'),
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -69,23 +76,27 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        builder: (context, widget) => ResponsiveWrapper.builder(
-          BouncingScrollWrapper.builder(context, widget!),
-          breakpoints: const [
-            ResponsiveBreakpoint.resize(350, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(600, name: TABLET),
-            ResponsiveBreakpoint.resize(800, name: DESKTOP),
-            ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
-          ],
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        debugShowCheckedModeBanner: false,
+        locale: context.locale,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-        home: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: Utility.box.get(Constants.USER) != null ? HomeLayout() : AuthenticationScreen(),
-          builder: EasyLoading.init(),
-        ),
+        builder: (context, widget) {
+          widget = ResponsiveWrapper.builder(
+            BouncingScrollWrapper.builder(context, widget!),
+            breakpoints: const [
+              ResponsiveBreakpoint.resize(350, name: MOBILE),
+              ResponsiveBreakpoint.autoScale(600, name: TABLET),
+              ResponsiveBreakpoint.resize(800, name: DESKTOP),
+              ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+            ],
+          );
+          widget = EasyLoading.init()(context, widget);
+          return widget;
+        },
+        home: Utility.box.get(Constants.USER) != null ? HomeLayout() : AuthenticationScreen(),
       ),
     );
   }

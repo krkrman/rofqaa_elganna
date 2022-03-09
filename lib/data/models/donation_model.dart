@@ -3,6 +3,7 @@ import 'package:rofqaa_elganna/data/models/user_model.dart';
 import 'package:rofqaa_elganna/helper/utility.dart';
 
 enum DonationKind { roof, waterLink, beds, brideDevices, meals, zakatMoney, public }
+enum DonationCollection { withMember, withTeamLeader, withTeamManager }
 
 class DonationModel {
   final UserModel? userModel;
@@ -11,7 +12,7 @@ class DonationModel {
   final DonationKind? donationKind;
   final int? amount;
   int? id;
-  bool? isCollected;
+  DonationCollection? donationCollection;
 
   DonationModel({
     required this.userModel,
@@ -20,12 +21,13 @@ class DonationModel {
     this.poorCode = 'public',
     required this.donationKind,
     required this.amount,
-    this.isCollected = false,
+    this.donationCollection = DonationCollection.withMember,
     this.id,
   });
 
   factory DonationModel.fromMap(Map<String, dynamic> map) {
     var enumObject = EnumObject<DonationKind>(DonationKind.values);
+    var donationEnum = EnumObject<DonationCollection>(DonationCollection.values);
     return DonationModel(
       userModel: UserModel.fromMap(map['userModel']),
       contributorName: map['contributorName'] ?? '',
@@ -33,7 +35,7 @@ class DonationModel {
       poorCode: map['poorCode'] ?? '',
       donationKind: enumObject.enumFromString(map['donationKind']),
       amount: map['amount'] as int,
-      isCollected: map['isCollected'] as bool,
+      donationCollection: donationEnum.enumFromString(map['donationCollection']),
       id: map['id'] as int,
     );
   }
@@ -47,13 +49,13 @@ class DonationModel {
       'poorCode': this.poorCode,
       'donationKind': Utility.convertEnumToString(this.donationKind),
       'amount': this.amount,
-      'isCollected': this.isCollected,
+      'donationCollection': Utility.convertEnumToString(this.donationCollection),
       'id': this.id ?? Utility.getRandomNumber(),
     } as Map<String, dynamic>;
   }
 
   @override
   String toString() {
-    return 'DonationModel{userModel: $userModel, contributorName: $contributorName, teamName: $teamName, poorCode: $poorCode, donationKind: $donationKind, amount: $amount, id: $id, isCollected: $isCollected}';
+    return 'DonationModel{userModel: $userModel, contributorName: $contributorName, teamName: $teamName, poorCode: $poorCode, donationKind: $donationKind, amount: $amount, id: $id, donationCollection: $donationCollection}';
   }
 }

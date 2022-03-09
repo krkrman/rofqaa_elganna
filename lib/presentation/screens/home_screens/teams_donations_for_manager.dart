@@ -19,8 +19,7 @@ class TeamsDonationsForManagerScreen extends StatelessWidget {
       builder: (context, state) {
         return Conditional.single(
             context: context,
-            conditionBuilder: (BuildContext context) =>
-                state is TeamsDonationsForManagerSucceeded,
+            conditionBuilder: (BuildContext context) => state is TeamsDonationsForManagerSucceeded,
             widgetBuilder: (BuildContext context) {
               List<TeamModel>? teamsList = TeamsDonationsForManagerCubit.get(context).teamsList;
               return RefreshIndicator(
@@ -28,13 +27,19 @@ class TeamsDonationsForManagerScreen extends StatelessWidget {
                 child: ListView.separated(
                     itemBuilder: (context, index) {
                       TeamModel currentTeam = teamsList![index];
-                      int collectedMoney = 0, unCollectedMoney = 0;
-                      currentTeam.collectedDonations!.forEach((element) {
-                        collectedMoney += element.amount!;
+                      int collectedMoneyWithTeamLeader = 0,
+                          collectedMoneyWithTeamManager = 0,
+                          unCollectedMoney = 0;
+                      currentTeam.donationsWithTeamLeader!.forEach((element) {
+                        collectedMoneyWithTeamLeader += element.amount!;
+                      });
+                      currentTeam.donationsWithTeamManager!.forEach((element) {
+                        collectedMoneyWithTeamManager += element.amount!;
                       });
                       currentTeam.unCollectedDonations!.forEach((element) {
                         unCollectedMoney += element.amount!;
                       });
+
                       return ExpandablePanel(
                         header: CustomText(
                           text: currentTeam.teamName!,
@@ -42,10 +47,12 @@ class TeamsDonationsForManagerScreen extends StatelessWidget {
                         ),
                         collapsed: const SizedBox(),
                         expanded: TeamDonationsItem(
-                          collectedMoney: collectedMoney,
+                          collectedWithTeamManagerMoney: collectedMoneyWithTeamManager,
                           unCollectedMoney: unCollectedMoney,
-                          collected: currentTeam.collectedDonations,
+                          collectedWithTeamLeader: currentTeam.donationsWithTeamLeader,
                           unCollected: currentTeam.unCollectedDonations,
+                          collectedWithTeamManager: currentTeam.donationsWithTeamManager,
+                          collectedWithTeamLeaderMoney: collectedMoneyWithTeamLeader,
                         ),
                         theme: const ExpandableThemeData(
                             hasIcon: true,
@@ -64,8 +71,7 @@ class TeamsDonationsForManagerScreen extends StatelessWidget {
                     itemCount: teamsList!.length),
               );
             },
-            fallbackBuilder: (BuildContext context) =>
-                Center(child: CircularProgressIndicator()));
+            fallbackBuilder: (BuildContext context) => Center(child: CircularProgressIndicator()));
       },
     );
   }
